@@ -48,6 +48,7 @@
 ;;; Code:
 
 ;;(require 'help-fns)		       ;For fundoc-usage handling functions.
+(require 'eldoc-xemacs)
 
 (defgroup eldoc nil
   "Show function arglist or variable docstring in echo area."
