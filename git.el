@@ -836,7 +836,13 @@ The FILES list must be sorted."
     (dolist (info files)
       (when (memq (git-fileinfo->state info) states)
         (push info result)))
-    (nreverse result)))
+    ;; It looks like git-marked-files returns the files in reverse
+    ;; order, so result will have the files in sorted order.
+    ;;
+    ;; FIXME: Is this a bug in ewoc-collect?  I think git-marked-files
+    ;; returns the files in sorted order, so result needs to be
+    ;; reversed.
+    result))
 
 (defun git-refresh-files ()
   "Refresh all files that need it and clear the needs-refresh flag."
