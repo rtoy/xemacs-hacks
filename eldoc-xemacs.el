@@ -27,10 +27,10 @@ DEF is the function whose usage we're looking for in DOCSTRING."
   ;; If definition is a macro, find the function inside it.
   (if (eq (car-safe def) 'macro) (setq def (cdr def)))
   (cond
-   ((byte-code-function-p def) (aref def 0))
+   ((byte-code-function-p def) (compiled-function-arglist def))
    ((eq (car-safe def) 'lambda) (nth 1 def))
    ((and (eq (car-safe def) 'autoload) (not (eq (nth 4 def) 'keymap)))
     "[Arg list not available until function definition is loaded.]")
    (t t)))
 
-(provide 'eldoc-help)
+(provide 'eldoc-xemacs)
