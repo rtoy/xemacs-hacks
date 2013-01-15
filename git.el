@@ -1053,10 +1053,13 @@ The FILES list must be sorted."
   "Add marked file(s) to the index cache."
   (interactive)
   (let ((files (git-get-filenames (git-marked-files-state 'unknown 'ignored 'unmerged))))
-    ;; FIXME: add support for directories
     (unless files
       (push (file-relative-name (read-file-name "File to add: " nil nil t)) files))
-    (when (apply 'git-call-process-display-error "update-index" "--add" "--" files)
+    ;; FIXME: When adding a directory, displayed list of files added
+    ;; is incorrect compared to the git buffer.  Say a directory with
+    ;; 2 files is added.  The success message just says the directory
+    ;; was added, but the git buffer shows 2 files added.
+    (when (apply 'git-call-process-display-error "add" "--" files)
       (git-update-status-files files)
       (git-success-message "Added" files))))
 
